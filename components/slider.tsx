@@ -72,13 +72,13 @@ export function Slider({ className, stops, value, onChange }: Props) {
     <div
       className={classNames(
         "relative z-0 w-full flex justify-center items-center touch-none",
-        { ["cursor-ew-resize"]: isDragging },
+        isDragging ? "cursor-ew-resize" : "cursor-pointer",
         className
       )}
       ref={container}
     >
       <div
-        className={classNames("w-full py-3 flex gap-1 cursor-pointer")}
+        className={classNames("w-full py-3 flex gap-1")}
         onClick={(e) => {
           if (!container.current) return;
 
@@ -106,7 +106,7 @@ export function Slider({ className, stops, value, onChange }: Props) {
         <motion.div
           tabIndex={0}
           className={classNames(
-            "z-10 absolute left-0 top-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full border-medium hover:border-dark border-2 shadow-[0px 4px 12px 0px #AB87FF1A] bg-white select-none cursor-ew-resize outline-offset-8 transition-colors",
+            "z-10 absolute left-0 top-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full border-medium hover:border-dark border-2 shadow-[0px 4px 12px 0px #AB87FF1A] bg-white select-none outline-offset-8 transition-colors cursor-ew-resize",
             { ["border-purple hover:border-purple"]: isDragging }
           )}
           initial={false}

@@ -9,13 +9,13 @@ export default function Home() {
     <div className="px-10 w-full max-w-3xl mx-auto space-y-10 p-10">
       <h1 className="text-5xl">React Slider Component</h1>
       <p className="text-xl">
-        This component is part of my
+        This component is part of my{" "}
         <a
           href="https://www.joshuawootonn.com/react-slider-component"
           className="font-bold underline text-purple"
         >
           React slider component breakdown
-        </a>
+        </a>{" "}
         blog post on{" "}
         <a
           href="https://www.joshuawootonn.com/"
