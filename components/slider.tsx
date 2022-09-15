@@ -13,8 +13,15 @@ type Props = {
 
 export function Slider({ className, stops, value, onChange }: Props) {
   const container = useRef<HTMLDivElement | null>(null);
-  const [position, setPosition] = useState(0);
+  const [position, setPosition] = useState<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    if (!container.current) return;
+    const { width: containerWidth } = container.current.getBoundingClientRect();
+    const segmentWidth = containerWidth / (stops.length - 1);
+    setPosition(value * segmentWidth);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", listener);
@@ -95,57 +102,59 @@ export function Slider({ className, stops, value, onChange }: Props) {
           />
         ))}
       </div>
-      <motion.div
-        tabIndex={0}
-        className={classNames(
-          "z-10 absolute left-0 top-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full border-medium hover:border-dark border-2 shadow-[0px 4px 12px 0px #AB87FF1A] bg-white select-none cursor-ew-resize outline-offset-8 transition-colors",
-          { ["border-purple hover:border-purple"]: isDragging }
-        )}
-        initial={false}
-        animate={{
-          x: position - 14,
-          y: "-50%",
-        }}
-        transition={{
-          type: "tween",
-          ease: [0.165, 0.84, 0.44, 1],
-          duration: 0.15,
-        }}
-        onFocus={() => setIsDragging(true)}
-        onBlur={() => setIsDragging(false)}
-        onPointerDown={(e) => {
-          const { ownerDocument } = e.currentTarget;
+      {position != null && (
+        <motion.div
+          tabIndex={0}
+          className={classNames(
+            "z-10 absolute left-0 top-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full border-medium hover:border-dark border-2 shadow-[0px 4px 12px 0px #AB87FF1A] bg-white select-none cursor-ew-resize outline-offset-8 transition-colors",
+            { ["border-purple hover:border-purple"]: isDragging }
+          )}
+          initial={false}
+          animate={{
+            x: position - 14,
+            y: "-50%",
+          }}
+          transition={{
+            type: "tween",
+            ease: [0.165, 0.84, 0.44, 1],
+            duration: 0.15,
+          }}
+          onFocus={() => setIsDragging(true)}
+          onBlur={() => setIsDragging(false)}
+          onPointerDown={(e) => {
+            const { ownerDocument } = e.currentTarget;
 
-          setIsDragging(true);
+            setIsDragging(true);
 
-          function onPointerMove(e: PointerEvent) {
-            if (!container.current) return;
+            function onPointerMove(e: PointerEvent) {
+              if (!container.current) return;
 
-            const { width: containerWidth, left: containerLeft } =
-              container.current.getBoundingClientRect();
+              const { width: containerWidth, left: containerLeft } =
+                container.current.getBoundingClientRect();
 
-            const segmentWidth = containerWidth / (stops.length - 1);
-            const index = Math.round(
-              (e.clientX - containerLeft) / segmentWidth
-            );
-            const clampedIndex = clamp(index, 0, stops.length - 1);
-            setPosition(clampedIndex * segmentWidth);
-            onChange(clampedIndex);
-          }
+              const segmentWidth = containerWidth / (stops.length - 1);
+              const index = Math.round(
+                (e.clientX - containerLeft) / segmentWidth
+              );
+              const clampedIndex = clamp(index, 0, stops.length - 1);
+              setPosition(clampedIndex * segmentWidth);
+              onChange(clampedIndex);
+            }
 
-          function onPointerUp(e: PointerEvent) {
-            setIsDragging(false);
-            ownerDocument.removeEventListener("pointermove", onPointerMove);
-          }
+            function onPointerUp(e: PointerEvent) {
+              setIsDragging(false);
+              ownerDocument.removeEventListener("pointermove", onPointerMove);
+            }
 
-          ownerDocument.addEventListener("pointermove", onPointerMove);
-          ownerDocument.addEventListener("pointerup", onPointerUp);
-        }}
-      >
-        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 select-none">
-          {stops[value]}
-        </div>
-      </motion.div>
+            ownerDocument.addEventListener("pointermove", onPointerMove);
+            ownerDocument.addEventListener("pointerup", onPointerUp);
+          }}
+        >
+          <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 select-none">
+            {stops[value]}
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 }
