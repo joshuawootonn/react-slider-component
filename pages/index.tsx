@@ -11,10 +11,10 @@ export default function Home() {
       <p className="text-xl">
         This component is part of my
         <a
-          href="https://www.joshuawootonn.com/how-to-create-a-slider-component-with-react"
+          href="https://www.joshuawootonn.com/react-slider-component"
           className="font-bold underline text-purple"
         >
-          "How to create a slider component in react"
+          React slider component breakdown
         </a>
         blog post on{" "}
         <a
