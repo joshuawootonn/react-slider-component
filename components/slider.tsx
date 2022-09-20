@@ -117,7 +117,7 @@ export function Slider({ className, stops, value, onChange }: Props) {
           transition={{
             type: "tween",
             ease: [0.165, 0.84, 0.44, 1],
-            duration: 0.15,
+            duration: 0.4,
           }}
           onFocus={() => setIsDragging(true)}
           onBlur={() => setIsDragging(false)}
