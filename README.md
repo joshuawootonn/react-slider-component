@@ -2,11 +2,11 @@
 <p className="text-xl">
 This component is part of my
 <a href="https://www.joshuawootonn.com/react-slider-component" className="font-bold underline text-purple">
-   "React slider component breakdown"
+   "React slider component"
 </a>
 blog post on
 <a href="https://www.joshuawootonn.com/" className="font-bold underline text-purple">joshuawootonn.com</a>
 
-If you are looking for the code checkout <a href="https://github.com/joshuawootonn/react-slider-component" className="font-bold underline text-purple">the github repo</a>
-
 </p>
+
+![Alt text](./public/preview.png?raw=true "preview of react accordion component")
