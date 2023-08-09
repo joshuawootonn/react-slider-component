@@ -1,3 +1,8 @@
+# 🚧 This repo has been moved
+
+Here is the [new location](https://github.com/joshuawootonn/react-components-from-scratch/tree/main/components/slider) with all the other components I have been working on.
+ 
+ 
  <h1 className="text-5xl">React Slider Component</h1>
 <p className="text-xl">
 This component is part of my
